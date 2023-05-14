@@ -1,7 +1,8 @@
 package main.controllers;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import main.beans.Messages;
 import main.listeners.SessionListenerCounter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.net.http.HttpRequest;
+
 @Controller
 public class SpringSessionController {
 
-    @Resource(name="sessionListenerWithMetrics")
-    private ServletListenerRegistrationBean<SessionListenerCounter> metrics;
+    //@Resource(name="sessionListenerWithMetrics")
+    //private ServletListenerRegistrationBean<SessionListenerCounter> metrics;
 
     // named bean injection - session scope
     @Resource(name = "sessionBeanExample")
-    private Messages messages;
+    private Messages sessionMessages;
 
     // named bean injection - application scope
     @Resource(name = "applicationBeanExample")
@@ -33,10 +36,11 @@ public class SpringSessionController {
 
     @GetMapping("/session")
     public String process(Model model) {
+
         // we modify an application scoped bean
         appMessages.add("hello"); // just for demo
 
-        model.addAttribute("sessionMessages", messages.getMessages());
+        model.addAttribute("sessionMessages", sessionMessages.getMessages());
         return "session";
     }
 
@@ -45,7 +49,7 @@ public class SpringSessionController {
         if (msg == null)
             System.out.println("null message !");
         else
-            messages.add(msg);
+            sessionMessages.add(msg);
 
         return "redirect:/session";
     }

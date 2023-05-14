@@ -1,5 +1,6 @@
 package main;
 
+import jakarta.servlet.http.HttpSessionListener;
 import main.beans.Messages;
 import main.listeners.SessionListenerCounter;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -12,22 +13,6 @@ import org.springframework.web.context.annotation.SessionScope;
 @Configuration
 public class BeanConfiguration {
 
-
-//    @Bean
-//    public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
-//        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListenerCounter());
-//    }
-
-    /*
-    we declare a bean 'sessionListenerWithMetrics' to count sessions
-     */
-    @Bean
-    public ServletListenerRegistrationBean<SessionListenerCounter> sessionListenerWithMetrics() {
-        ServletListenerRegistrationBean<SessionListenerCounter> listenerRegBean = new ServletListenerRegistrationBean<>();
-
-        listenerRegBean.setListener(new SessionListenerCounter());
-        return listenerRegBean;
-    }
 
     /* we declare a bean 'sessionBeanExample' with session scope
     * originally
@@ -44,4 +29,23 @@ public class BeanConfiguration {
     public Messages applicationBeanExample () {
         return new Messages();
     }
+
+
+//    @Bean
+//    public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
+//        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListenerCounter());
+//    }
+
+    /*
+    we declare a bean 'ServletListenerRegistrationBean' to count sessions
+    this is not necessary anymore since the annotation @WebListener that does the same thing
+     */
+//    @Bean
+//    public ServletListenerRegistrationBean<SessionListenerCounter> sessionListenerWithMetrics() {
+//        ServletListenerRegistrationBean<SessionListenerCounter> listenerRegBean = new ServletListenerRegistrationBean<>();
+//
+//        listenerRegBean.setListener(new SessionListenerCounter());
+//        return listenerRegBean;
+//    }
+
 }

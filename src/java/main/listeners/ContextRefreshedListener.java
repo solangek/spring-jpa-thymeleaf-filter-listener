@@ -5,9 +5,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 /*
-  second method to create a listener: implementing an Spring interface
+  second method to create a listener - does not require any annotations on the
+    class, but requires the class to implement the ApplicationListener interface
+    and to implement the onApplicationEvent method.
  */
-@Component
 public class ContextRefreshedListener implements ApplicationListener<ContextRefreshedEvent> {
 
     // for tests

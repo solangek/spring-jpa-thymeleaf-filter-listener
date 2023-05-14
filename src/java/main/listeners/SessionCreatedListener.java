@@ -1,19 +1,18 @@
 package main.listeners;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.session.events.SessionCreatedEvent;
-import org.springframework.session.events.SessionDestroyedEvent;
-import org.springframework.session.events.SessionExpiredEvent;
+import jakarta.servlet.annotation.WebListener;
+import jakarta.servlet.http.HttpSessionEvent;
+import org.springframework.stereotype.Component;
 
-import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@WebListener
+/**
+ * this class is a listener for session creation
+ * it will not work in case of spring session because the session is created in the listener itself
+ */
+@Component
 public class SessionCreatedListener implements ApplicationListener<SessionCreatedEvent> {
 //        ,ApplicationListener<SessionDestroyedEvent> {
 

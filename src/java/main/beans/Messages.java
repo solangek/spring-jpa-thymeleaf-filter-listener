@@ -14,10 +14,10 @@ import java.util.ArrayList;
 */
 @Component
 public class Messages implements Serializable {
-    private ArrayList<String> messages;
+    private ArrayList<String> messages = new ArrayList<>();;
 
     public Messages() {
-        this.messages = new ArrayList<>();
+
     }
 
     public ArrayList<String> getMessages() {

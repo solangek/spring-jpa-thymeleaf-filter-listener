@@ -24,7 +24,7 @@
 
         <p>This example has 2 additions:</p>
         <ol>
-            <li>Try the <a href="http://localhost:8080/edit/100">error page</a> (a link to a non existent user) that catches all exceptions and display an error page.</a></li>
+            <li>Try the <a href="http://localhost:8080/edit/100">error page</a> (a link to a non existent userInfo) that catches all exceptions and display an error page.</a></li>
             <li>Check the console to see the Interceptor class output. More information about filters <a href="https://www.baeldung.com/spring-boot-add-filter">here</a></li>
         </ol>
 
@@ -44,16 +44,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.userName}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td><a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-                        <td><a th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                    <tr th:each="userInfo : ${users}">
+                        <td th:text="${userInfo.userName}"></td>
+                        <td th:text="${userInfo.email}"></td>
+                        <td><a th:href="@{/edit/{id}(id=${userInfo.id})}" class="btn btn-primary"><i class="fas fa-userInfo-edit ml-2"></i></a></td>
+                        <td><a th:href="@{/delete/{id}(id=${userInfo.id})}" class="btn btn-primary"><i class="fas fa-userInfo-times ml-2"></i></a></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="my-5"><a href="/signup" class="btn btn-primary"><i class="fas fa-user-plus ml-2"></i></a></p>
+            <p class="my-5"><a href="/signup" class="btn btn-primary"><i class="fas fa-userInfo-plus ml-2"></i></a></p>
         </div>
     </div>
 </div>

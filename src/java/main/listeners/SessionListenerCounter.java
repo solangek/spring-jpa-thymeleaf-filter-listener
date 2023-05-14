@@ -1,20 +1,18 @@
 package main.listeners;
 
-
-
+import jakarta.annotation.Resource;
+import jakarta.servlet.annotation.WebListener;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
 import main.beans.Messages;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.annotation.Resource;
-import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
-import java.util.Enumeration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * a @WebListener class for session count
+ * a classic @WebListener class for session count
  * the @Component is needed only if we INJECT beans
  */
 @Component
@@ -22,8 +20,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SessionListenerCounter implements HttpSessionListener {
     private final AtomicInteger activeSessions;
 
-    // named bean injection
-    @Resource(name = "applicationBeanExample")
+    // we can inject beans in a listener - the @Component annotation on the class is required in this case
+    @Autowired
+    @Qualifier("applicationBeanExample")
     private Messages messages;
 
     public SessionListenerCounter() {
@@ -39,10 +38,11 @@ public class SessionListenerCounter implements HttpSessionListener {
         activeSessions.incrementAndGet();
         System.out.println("SessionListenerCounter +++ Total active session are " + activeSessions.get());
 
-        // example of application bean accessed from session listener
-        if (messages!= null)
+        if (messages != null) {
+            messages.add("session created:" + event.getSession().getId());
+            // example of application bean accessed from session listener
             System.out.println("application bean size = " + messages.getMessages().size());
-
+        }
 
     }
     public void sessionDestroyed(final HttpSessionEvent event) {

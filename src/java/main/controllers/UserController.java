@@ -1,7 +1,7 @@
 package main.controllers;
 
-import javax.validation.Valid;
-import main.repo.User;
+import jakarta.validation.Valid;
+import main.repo.UserInfo;
 import main.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +44,7 @@ public class UserController {
 //    }
 
     @GetMapping("/")
-    public String main(User user, Model model) {
+    public String main(UserInfo userInfo, Model model) {
         model.addAttribute("course", someProperty);
         model.addAttribute("users", getRepo().findAll());
         System.out.println("in /");
@@ -52,16 +52,16 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public String showSignUpForm(User user) {
+    public String showSignUpForm(UserInfo userInfo) {
         return "add-user";
     }
 
     @PostMapping("/adduser")
-    public String addUser(@Valid User user, BindingResult result, Model model) {
+    public String addUser(@Valid UserInfo userInfo, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-user";
         }
-        getRepo().save(user);
+        getRepo().save(userInfo);
         model.addAttribute("users", getRepo().findAll());
         return "index";
     }
@@ -69,19 +69,19 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
 
-        User user = getRepo().findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        model.addAttribute("user", user);
+        UserInfo userInfo = getRepo().findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("user", userInfo);
         return "update-user";
     }
 
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, @Valid User user, BindingResult result, Model model) {
+    public String updateUser(@PathVariable("id") long id, @Valid UserInfo userInfo, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            user.setId(id);
+            userInfo.setId(id);
             return "update-user";
         }
 
-        getRepo().save(user);
+        getRepo().save(userInfo);
         model.addAttribute("users", getRepo().findAll());
         return "index";
     }
@@ -89,8 +89,8 @@ public class UserController {
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {
 
-        User user = getRepo().findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        getRepo().delete(user);
+        UserInfo userInfo = getRepo().findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        getRepo().delete(userInfo);
         model.addAttribute("users", getRepo().findAll());
         return "index";
     }
@@ -105,7 +105,7 @@ public class UserController {
      * @return
      */
     @GetMapping(value="/getjson")
-    public @ResponseBody List<User> getAll(Model model) {
+    public @ResponseBody List<UserInfo> getAll(Model model) {
 
         return getRepo().findAll();
     }
