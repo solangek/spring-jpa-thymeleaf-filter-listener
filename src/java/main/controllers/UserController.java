@@ -1,19 +1,22 @@
 package main.controllers;
 
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import main.repo.UserInfo;
 import main.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -51,6 +54,11 @@ public class UserController {
         return "index";
     }
 
+    /**
+     * display the form for adding a new user
+     * @param userInfo this is the model attribute that will be bound to the form for thymeleaf error handling
+     * @return the view name
+     */
     @GetMapping("/signup")
     public String showSignUpForm(UserInfo userInfo) {
         return "add-user";
@@ -108,6 +116,19 @@ public class UserController {
     public @ResponseBody List<UserInfo> getAll(Model model) {
 
         return getRepo().findAll();
+    }
+
+    /** our controller throws an exception so we define a handler
+     * to catch it and return a custom error page
+     * @param ex
+     * @param model
+     * @return
+     */
+    @ExceptionHandler({Exception.class})
+    public String handleValidationExceptions(Exception ex, Model model) {
+        // we can insert the message into the model
+        model.addAttribute("error", ex.getMessage());
+        return "error";
     }
 }
 

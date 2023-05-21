@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * this class is a listener for session creation
- * it will not work in case of spring session because the session is created in the listener itself
+ * not supported by all SessionRepository implementations (e.g. JDBC)
  */
 @Component
 public class SessionCreatedListener implements ApplicationListener<SessionCreatedEvent> {

@@ -3,7 +3,7 @@
     <option name="ACTIVE_PROFILES" />
     <option name="ALTERNATIVE_JRE_PATH" value="11" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-    <module name="spring-jpa-thymeleaf-sessionbean-filter-error-listener" />
+    <module name="spring-jpa-thymeleaf" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="main.Application" />
     <method v="2">
       <option name="Make" enabled="true" />

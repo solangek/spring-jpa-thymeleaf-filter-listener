@@ -14,7 +14,7 @@ import java.util.ArrayList;
 */
 @Component
 public class Messages implements Serializable {
-    private ArrayList<String> messages = new ArrayList<>();;
+    private ArrayList<String> messages = new ArrayList<>();
 
     public Messages() {
 
@@ -30,6 +30,10 @@ public class Messages implements Serializable {
 
     public void add (String m) {
         messages.add(m);
+    }
+
+    public void clear() {
+        messages.clear();
     }
 
 }

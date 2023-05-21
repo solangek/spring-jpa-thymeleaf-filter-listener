@@ -57,6 +57,8 @@ public class SpringSessionController {
     @PostMapping("/destroy")
     public String destroySession(HttpServletRequest request) {
         request.getSession().invalidate();
+        // we could also empty the session bean
+        //sessionMessages.clear();
         return "redirect:/session";
     }
 }

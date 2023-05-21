@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/spring-jpa-thymeleaf-sessionbean-filter-error-listener.iml" filepath="$PROJECT_DIR$/spring-jpa-thymeleaf-sessionbean-filter-error-listener.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-jpa-thymeleaf.iml" filepath="$PROJECT_DIR$/spring-jpa-thymeleaf.iml" />
     </modules>
   </component>
 </project>

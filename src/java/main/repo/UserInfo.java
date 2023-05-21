@@ -1,7 +1,7 @@
 package main.repo;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class UserInfo {
@@ -14,6 +14,7 @@ public class UserInfo {
     private String userName;
 
     @NotBlank(message = "Email is mandatory")
+    @Email
     private String email;
 
     public UserInfo() {}
