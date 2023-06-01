@@ -70,8 +70,11 @@ public class UserController {
             return "add-user";
         }
         getRepo().save(userInfo);
+        //  option 1: return a view and stay in POST
         model.addAttribute("users", getRepo().findAll());
         return "index";
+        // option 2, redirect to avoid form resubmission
+        // return "redirect:/";
     }
 
     @GetMapping("/edit/{id}")
