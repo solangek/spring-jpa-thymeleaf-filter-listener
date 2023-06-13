@@ -14,7 +14,7 @@ public class UserInfo {
     private String userName;
 
     @NotBlank(message = "Email is mandatory")
-    @Email
+    @Email(message = "Email is not valid, please try again")
     private String email;
 
     public UserInfo() {}
