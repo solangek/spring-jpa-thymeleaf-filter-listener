@@ -14,8 +14,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
   this is a class for configuring SringMVC
   here we register our interceptor class and the session listener
   WebMvcConfigurer allows configuring all of the MVC:
-
-  TODO: CHECK WHY STATIC FOLDER IS NOT REACHABLE WHEN ADDING FILTER
  */
 @EnableWebMvc
 @Configuration
@@ -39,6 +37,7 @@ public class FiltersConfig implements WebMvcConfigurer {
         //registry.addInterceptor(new LoggingInterceptor()).addPathPatterns("/add-user/**").excludePathPatterns("/static/**");
     }
 
+// STATIC FOLDER IS NOT REACHABLE WHEN ADDING FILTER, you need this piece of code to enable access:
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry
