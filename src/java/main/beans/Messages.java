@@ -35,5 +35,11 @@ public class Messages implements Serializable {
     public void clear() {
         messages.clear();
     }
+    @Override
+    public String toString() {
+        return "Messages{" +
+                "messages=" + messages +
+                '}';
+    }
 
 }

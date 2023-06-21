@@ -1,9 +1,12 @@
 package main.filters;
 
+import main.beans.Messages;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.Enumeration;
 
 
 /**
@@ -16,28 +19,41 @@ import jakarta.servlet.http.HttpServletResponse;
 public class LoggingInterceptor implements HandlerInterceptor {
 
     // we can use a private member to store a bean received by ctor
-    //private Messages messages;
+    private Messages messages;
 
     public LoggingInterceptor() {}
 
     // let's say we want access to some bean, a solution is to pass the bean to the ctor
     // or define some setter method to pass it
-//    public LoggingInterceptor(Messages m) {
-//        messages = m;
-//    }
+    public LoggingInterceptor(Messages m) {
+        messages = m;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
         long startTime = System.currentTimeMillis();
-        //System.out.println("Session bean in filter: " + messages);
 
         //System.out.print("-------- preHandle --- ");
         //System.out.print("Request URL: " + request.getRequestURL());
         //System.out.println("; Start Time: " + System.currentTimeMillis());
 
         request.setAttribute("startTime", startTime);
+
+        // if you are curious to see how beans are named under the session, uncomment the following lines:
+//        Enumeration keys = request.getSession().getAttributeNames();
+//        while (keys.hasMoreElements()){
+//            String key = (String)keys.nextElement();
+//            System.out.println((key + ": " + request.getSession().getAttribute(key)));
+//        }
+
+        // you may try to access the bean through the request object but be aware that
+        // the bean name is prefixed with some string like "scopedTarget." (enable the 4 lines above to print the bean name)
+        //System.out.println( "sessionBeanExample:" + request.getSession().getAttribute("scopedTarget.sessionBeanExample"));
+
+        // that's why it's better to inject the bean through the ctor, you don't need to know its name:
+        // System.out.println("Session bean in filter: " + messages);
 
         // filter can redirect response to a specific page
         // response.sendRedirect("/error");

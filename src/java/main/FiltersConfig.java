@@ -1,5 +1,7 @@
 package main;
 
+import jakarta.annotation.Resource;
+import main.beans.Messages;
 import main.filters.LoggingInterceptor;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,18 +22,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class FiltersConfig implements WebMvcConfigurer {
 
     // we can inject a bean in the config class then pass it to other classes such as filter
-    //@Resource(name = "sessionBeanExample")
-    //private Messages messages;
+    @Resource(name = "sessionBeanExample")
+    private Messages messages;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         // if you want to apply filter only for REST controller: change the "/**" pattern
 
-        // if we want to pass some bean to the filter
-        //registry.addInterceptor(new LoggingInterceptor(messages)).addPathPatterns("/**");
-
         // no args ctor
-        registry.addInterceptor(new LoggingInterceptor()); //.addPathPatterns("/signup");
+        // define the URL to intercept with the pattern you want
+        registry.addInterceptor(new LoggingInterceptor()).addPathPatterns("/**");
+
+        // if we want to pass some bean to the filter
+        // registry.addInterceptor(new LoggingInterceptor(messages)).addPathPatterns("/**");
 
         // excluding patterns
         //registry.addInterceptor(new LoggingInterceptor()).addPathPatterns("/add-user/**").excludePathPatterns("/static/**");
