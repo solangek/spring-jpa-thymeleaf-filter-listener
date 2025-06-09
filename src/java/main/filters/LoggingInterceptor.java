@@ -35,9 +35,9 @@ public class LoggingInterceptor implements HandlerInterceptor {
 
         long startTime = System.currentTimeMillis();
 
-        //System.out.print("-------- preHandle --- ");
-        //System.out.print("Request URL: " + request.getRequestURL());
-        //System.out.println("; Start Time: " + System.currentTimeMillis());
+        System.out.print("-------- preHandle --- ");
+        System.out.print("Request URL: " + request.getRequestURL());
+        System.out.println("; Start Time: " + System.currentTimeMillis());
 
         request.setAttribute("startTime", startTime);
 
@@ -50,7 +50,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
 
         // you may try to access the bean through the request object but be aware that
         // the bean name is prefixed with some string like "scopedTarget." (enable the 4 lines above to print the bean name)
-        //System.out.println( "sessionBeanExample:" + request.getSession().getAttribute("scopedTarget.sessionBeanExample"));
+        // System.out.println( "sessionBeanExample:" + request.getSession().getAttribute("scopedTarget.sessionBeanExample"));
 
         // that's why it's better to inject the bean through the ctor, you don't need to know its name:
         // System.out.println("Session bean in filter: " + messages);
@@ -67,8 +67,8 @@ public class LoggingInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, //
                            Object handler, ModelAndView modelAndView) throws Exception {
 
-        //System.out.print("-------- postHandle ---: ");
-        //System.out.println("Request URL: " + request.getRequestURL());
+        System.out.print("-------- postHandle ---: ");
+        System.out.println("Request URL: " + request.getRequestURL());
 
         // You can add attributes in the modelAndView
         // and use that in the view page

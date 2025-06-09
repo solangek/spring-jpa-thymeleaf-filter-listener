@@ -2,6 +2,7 @@ package main.repo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.springframework.stereotype.Component;
 
 @Entity
 public class UserInfo {

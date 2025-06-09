@@ -30,17 +30,13 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
-    private UserRepository getRepo() {
-        return repository;
-    }
-
     /*
     a controller that acts as a middleware (all requests go thru it before reaching others
      */
 //    @GetMapping ("/**")
 //    public String main1(User user, Model model) {
 //        //model.addAttribute("course", someProperty);
-//        //model.addAttribute("users", getRepo().findAll());
+//        //model.addAttribute("users", repository.findAll());
 //        System.out.println("in /**");
 //        // you can return any view, it is not really happening since next controller does it
 //        return "error";
@@ -49,7 +45,7 @@ public class UserController {
     @GetMapping("/")
     public String main(UserInfo userInfo, Model model) {
         model.addAttribute("course", someProperty);
-        model.addAttribute("users", getRepo().findAll());
+        model.addAttribute("users", repository.findAll());
         System.out.println("in /");
         return "index";
     }
@@ -69,9 +65,9 @@ public class UserController {
         if (result.hasErrors()) {
             return "add-user";
         }
-        getRepo().save(userInfo);
+        repository.save(userInfo);
         //  option 1: return a view and stay in POST
-        model.addAttribute("users", getRepo().findAll());
+        model.addAttribute("users", repository.findAll());
         return "index";
         // option 2, redirect to avoid form resubmission
         // return "redirect:/";
@@ -80,7 +76,7 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
 
-        UserInfo userInfo = getRepo().findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        UserInfo userInfo = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", userInfo);
         return "update-user";
     }
@@ -92,17 +88,17 @@ public class UserController {
             return "update-user";
         }
 
-        getRepo().save(userInfo);
-        model.addAttribute("users", getRepo().findAll());
+        repository.save(userInfo);
+        model.addAttribute("users", repository.findAll());
         return "index";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {
 
-        UserInfo userInfo = getRepo().findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        getRepo().delete(userInfo);
-        model.addAttribute("users", getRepo().findAll());
+        UserInfo userInfo = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        repository.delete(userInfo);
+        model.addAttribute("users", repository.findAll());
         return "index";
     }
 
@@ -118,7 +114,7 @@ public class UserController {
     @GetMapping(value="/getjson")
     public @ResponseBody List<UserInfo> getAll(Model model) {
 
-        return getRepo().findAll();
+        return repository.findAll();
     }
 
     /** our controller throws an exception so we define a handler
