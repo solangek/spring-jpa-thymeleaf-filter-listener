@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
     class, but requires the class to implement the ApplicationListener interface
     and to implement the onApplicationEvent method.
  */
+@Component
 public class ContextRefreshedListener implements ApplicationListener<ContextRefreshedEvent> {
 
     // for tests
